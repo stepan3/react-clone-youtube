@@ -1,6 +1,6 @@
 .video_preview {
   display: grid;
-  grid: 129px auto / 210px;
+  grid: 119px auto / 210px;
   margin-left: 5px;
   margin-bottom: 25px;
 }

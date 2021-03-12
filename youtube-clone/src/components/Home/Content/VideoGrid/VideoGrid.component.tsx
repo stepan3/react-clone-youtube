@@ -2,18 +2,26 @@ import React from 'react'
 import { VideoPreview } from './VideoPreview/VideoPreview.component'
 import { VideoGridHeader } from './VideoGridHeader/VideoGridHeader.component'
 import { Divider } from 'semantic-ui-react'
+import { Video } from '../../../../store/types'
 
 import './VideoGrid.css'
 
-export const VideoGrid = () => {
-  let previews = Array.apply(null, new Array(15)).map((val, index) => (
-    <VideoPreview key={index} />
+interface IVideos {
+  videos: Video[]
+  title: string
+  showDivider: boolean
+}
+
+export const VideoGrid = (props: IVideos) => {
+  let previews = props.videos.map(video => (
+    <VideoPreview video={video} key={video.id} />
   ))
+
   return (
     <>
-      <VideoGridHeader title="Test Title" />
+      <VideoGridHeader title={props.title} />
       <div className="video_grid">{previews}</div>
-      <Divider />
+      {props.showDivider ? <Divider /> : null}
     </>
   )
 }
