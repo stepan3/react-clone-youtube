@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import { Home } from './components/Home/Home.component'
 import Search from './components/Search/Search.component'
 import TopNav from './components/TopNav/TopNav.component'
+import Trending from './components/Trending/Trending.component'
 import { SideBar } from './components/SideBar/SideBar.component'
 import { connect } from 'react-redux'
 import { YoutubeClientLoaded } from './store/action-creators/action-creator'
@@ -26,6 +27,7 @@ const App = (props: IApp) => {
       <TopNav />
       <SideBar />
       <Switch>
+        <Route path="/feed/trending" component={Trending} />
         <Route path="/result" component={Search} />
         <Route path="/" component={Home} />
       </Switch>

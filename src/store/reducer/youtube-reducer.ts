@@ -1,6 +1,6 @@
 import { ActionTypes, IAction } from '../interfaces/IAction'
 import { IVideoState } from '../interfaces/IVideoState'
-import { SearchResult } from '../types'
+import { SearchResult, Video } from '../types'
 
 let initialState: IVideoState = {
   isYoutubeClientLoaded: false,
@@ -8,7 +8,8 @@ let initialState: IVideoState = {
   categories: [],
   videosByCategories: {},
   videosLoading: false,
-  searchResults: {}
+  searchResults: {},
+  trendingVideos: {}
 }
 
 export const YoutubeReducer = (
@@ -50,6 +51,14 @@ export const YoutubeReducer = (
   } else if (action.type === ActionTypes.ClearSearchResult) {
     let state = { ...currentState }
     state.searchResults = {}
+    return state
+  } else if (action.type === ActionTypes.GetTrendingVideos) {
+    let state = { ...currentState }
+    state.videosLoading = false
+    let videos: Video[] =
+      (state.trendingVideos.items || []).concat(action.payload.items) || []
+    state.trendingVideos = { ...state.trendingVideos, ...action.payload }
+    state.trendingVideos.items = [...videos]
     return state
   }
   return currentState

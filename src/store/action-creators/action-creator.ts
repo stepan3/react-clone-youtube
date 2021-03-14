@@ -1,4 +1,5 @@
 import {
+  getTrendingVideos,
   getVideoCategories,
   getVideos,
   getVideosByCategory,
@@ -81,6 +82,17 @@ export const SearchVideos = (query: string, nextPageToken: string | null) => {
     searchVideo(query, nextPageToken).then((data: SearchResponse) => {
       dispatch({
         type: ActionTypes.SearchVideos,
+        payload: data.result
+      })
+    })
+  }
+}
+
+export const GetTrendingVideos = (nextPageToken: string | null) => {
+  return (dispatch: any) => {
+    getTrendingVideos(nextPageToken).then((data: VideoResponse) => {
+      dispatch({
+        type: ActionTypes.GetTrendingVideos,
         payload: data.result
       })
     })

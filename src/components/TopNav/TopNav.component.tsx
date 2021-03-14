@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { RouteComponentProps, withRouter } from 'react-router'
+import { RouteComponentProps, withRouter, Link } from 'react-router-dom'
 import { Menu, Item, Icon, Form, Input } from 'semantic-ui-react'
 import { params } from '../../store/types'
 import { getParamValue } from '../../utils/uri'
@@ -25,12 +25,14 @@ const TopNav = (props: ITopNav) => {
 
   return (
     <Menu borderless fixed="top" className="top_nav">
-      <Item>
-        <span>
-          <Icon size="large" name="youtube" />
-        </span>
-        <span>UTube</span>
-      </Item>
+      <Link to="/">
+        <Item>
+          <span>
+            <Icon size="large" name="youtube" />
+          </span>
+          <span>UTube</span>
+        </Item>
+      </Link>
       <Menu.Menu className="top_nav_container">
         <Item className="search_input">
           <Form onSubmit={onSubmit}>

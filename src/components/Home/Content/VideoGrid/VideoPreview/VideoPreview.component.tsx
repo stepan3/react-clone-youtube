@@ -41,7 +41,9 @@ export const VideoPreview = ({ video, isVertical }: IVideoPreview) => {
               : `${formatShortString(video.statistics?.viewCount!)}{' '}
             views • ${timeAgo.format(new Date(video.snippet?.publishedAt!))}`}
           </div>
-          {isVertical && <div>{video.snippet?.description}</div>}
+          {isVertical && (
+            <div className="video_info_title">{video.snippet?.description}</div>
+          )}
         </div>
       </div>
     </div>

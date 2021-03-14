@@ -2,7 +2,8 @@ import {
   SearchListResponse,
   Video,
   VideoByCategory,
-  VideoCategory
+  VideoCategory,
+  VideoListResponse
 } from '../types'
 
 export interface IVideoState {
@@ -12,4 +13,5 @@ export interface IVideoState {
   categories: VideoCategory[]
   videosLoading: boolean
   searchResults: SearchListResponse
+  trendingVideos: VideoListResponse
 }
