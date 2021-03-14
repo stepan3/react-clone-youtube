@@ -1,12 +1,14 @@
 import { ActionTypes, IAction } from '../interfaces/IAction'
 import { IVideoState } from '../interfaces/IVideoState'
+import { SearchResult } from '../types'
 
 let initialState: IVideoState = {
   isYoutubeClientLoaded: false,
   videos: [],
   categories: [],
   videosByCategories: {},
-  videosLoading: false
+  videosLoading: false,
+  searchResults: {}
 }
 
 export const YoutubeReducer = (
@@ -36,6 +38,18 @@ export const YoutubeReducer = (
   } else if (action.type === ActionTypes.VideosLoading) {
     let state = { ...currentState }
     state.videosLoading = true
+    return state
+  } else if (action.type === ActionTypes.SearchVideos) {
+    let state = { ...currentState }
+    state.videosLoading = false
+    let videos: SearchResult[] =
+      (state.searchResults.items || []).concat(action.payload.items) || []
+    state.searchResults = { ...state.searchResults, ...action.payload }
+    state.searchResults.items = [...videos]
+    return state
+  } else if (action.type === ActionTypes.ClearSearchResult) {
+    let state = { ...currentState }
+    state.searchResults = {}
     return state
   }
   return currentState

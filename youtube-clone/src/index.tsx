@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { createStore, compose, applyMiddleware } from 'redux'
 import Thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
-import { YoutubeReducer } from './store/Reducer/youtube- reducer'
+import { YoutubeReducer } from './store/reducer/youtube-reducer'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 

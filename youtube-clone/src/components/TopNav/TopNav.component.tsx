@@ -1,14 +1,26 @@
 import React, { useState } from 'react'
+import { RouteComponentProps, withRouter } from 'react-router'
 import { Menu, Item, Icon, Form, Input } from 'semantic-ui-react'
+import { params } from '../../store/types'
+import { getParamValue } from '../../utils/uri'
 
 import './TopNav.css'
 
-export const TopNav = () => {
-  const [searchInput, setSearchInput] = useState('')
+interface ITopNav extends RouteComponentProps<params> {}
+
+const TopNav = (props: ITopNav) => {
+  const [searchInputState, setSearchState] = useState(
+    getParamValue(props.location, 'search_query') || ''
+  )
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value: string = e.currentTarget.value
-    setSearchInput(() => value)
+    setSearchState(() => value)
+  }
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const encodeUri = encodeURI(searchInputState!)
+    props.history.push(`/result?search_query=${encodeUri}`)
   }
 
   return (
@@ -21,11 +33,11 @@ export const TopNav = () => {
       </Item>
       <Menu.Menu className="top_nav_container">
         <Item className="search_input">
-          <Form>
+          <Form onSubmit={onSubmit}>
             <Form.Field>
               <Input
                 placeholder="Search"
-                value={searchInput}
+                value={searchInputState}
                 action={{ icon: 'search' }}
                 onChange={onSearchChange}
               />
@@ -47,3 +59,5 @@ export const TopNav = () => {
     </Menu>
   )
 }
+
+export default withRouter(TopNav)

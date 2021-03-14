@@ -1,6 +1,12 @@
-import { getVideoCategories, getVideos, getVideosByCategory } from '../api/api'
+import {
+  getVideoCategories,
+  getVideos,
+  getVideosByCategory,
+  searchVideo
+} from '../api/api'
 import { ActionTypes } from '../interfaces/IAction'
 import {
+  SearchResponse,
   VideoByCategory,
   VideoCategory,
   VideoCategoryResponse,
@@ -16,6 +22,12 @@ export const YoutubeClientLoaded = () => {
 export const VideosLoading = () => {
   return {
     type: ActionTypes.VideosLoading
+  }
+}
+
+export const ClearSearchResult = () => {
+  return {
+    type: ActionTypes.ClearSearchResult
   }
 }
 
@@ -59,6 +71,17 @@ export const GetVideosByCategories = (videoCategories: VideoCategory[]) => {
       dispatch({
         type: ActionTypes.LoadVideosByCategories,
         payload: result
+      })
+    })
+  }
+}
+
+export const SearchVideos = (query: string, nextPageToken: string | null) => {
+  return (dispatch: any) => {
+    searchVideo(query, nextPageToken).then((data: SearchResponse) => {
+      dispatch({
+        type: ActionTypes.SearchVideos,
+        payload: data.result
       })
     })
   }

@@ -1,4 +1,4 @@
-import { VideoCategoryResponse, VideoResponse } from '../types'
+import { SearchResponse, VideoCategoryResponse, VideoResponse } from '../types'
 
 export const getVideos = (): Promise<VideoResponse> => {
   return getVideoByFilter()
@@ -14,6 +14,21 @@ export const getVideoCategories = (): Promise<VideoCategoryResponse> => {
   return (gapi.client as any).youtube.videoCategories.list({
     part: ['snippet'],
     regionCode: 'RU'
+  })
+}
+
+export const searchVideo = (
+  query: string,
+  nextPageToken: string | null,
+  maxResults: number = 14
+): Promise<SearchResponse> => {
+  return (gapi.client as any).youtube.search.list({
+    part: ['snippet', 'id'],
+    q: query,
+    regionCode: 'RU',
+    maxResults: maxResults,
+    pageToken: nextPageToken,
+    type: 'video'
   })
 }
 
