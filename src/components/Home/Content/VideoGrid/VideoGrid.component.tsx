@@ -1,5 +1,5 @@
 import React from 'react'
-import { VideoPreview } from './VideoPreview/VideoPreview.component'
+import VideoPreview from './VideoPreview/VideoPreview.component'
 import { VideoGridHeader } from './VideoGridHeader/VideoGridHeader.component'
 import { Divider } from 'semantic-ui-react'
 import { Video } from '../../../../store/types'

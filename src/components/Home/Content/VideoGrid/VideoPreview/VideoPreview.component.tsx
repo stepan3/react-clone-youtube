@@ -1,27 +1,31 @@
 import React from 'react'
 import { Image } from 'semantic-ui-react'
-import { Video } from '../../../../../store/types'
+import { params, Video } from '../../../../../store/types'
 import { formatShortString } from '../../../../../utils/number'
 import { formatTimeString } from '../../../../../utils/timeformat'
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import './VideoPreview.css'
+import { RouteComponentProps, withRouter } from 'react-router'
 
 TimeAgo.addLocale(en)
 
 const timeAgo: TimeAgo = new TimeAgo()
 
-interface IVideoPreview {
+interface IVideoPreview extends RouteComponentProps<params> {
   video: Video
   isVertical?: boolean
 }
 
-export const VideoPreview = ({ video, isVertical }: IVideoPreview) => {
+const VideoPreview = ({ video, isVertical, history }: IVideoPreview) => {
   const infoClass: string = isVertical ? 'verticalList' : 'video_info'
 
   return (
     <div className="video_preview">
-      <div className="video_image">
+      <div
+        className="video_image"
+        onClick={() => history.push(`/watch?v=${video.id}`)}
+      >
         <Image src={video.snippet?.thumbnails?.medium?.url} />
         <div className="video_timestamp">
           <span>
@@ -49,3 +53,5 @@ export const VideoPreview = ({ video, isVertical }: IVideoPreview) => {
     </div>
   )
 }
+
+export default withRouter(VideoPreview)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Waypoint } from 'react-waypoint'
 import { Video } from '../../../store/types'
-import { VideoPreview } from '../../Home/Content/VideoGrid/VideoPreview/VideoPreview.component'
+import VideoPreview from '../../Home/Content/VideoGrid/VideoPreview/VideoPreview.component'
 import { InfiniteScroll } from '../../InfiniteScroll/InfiniteScroll.component'
 import './ResultList.css'
 
